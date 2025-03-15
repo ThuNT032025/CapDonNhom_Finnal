@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giao diện bảo hiểm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2E7D32;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+        }
+        .sidebar h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 10px 0;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: #F4F4F4;
+        }
+        .search-bar {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-bar button {
+            background-color: #2E7D32;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #B2DFDB;
+        }
+        .status {
+            color: blue;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>HD Insurance</h2>
+        <ul>
+            <li>Yêu cầu bảo hiểm</li>
+            <li>Danh sách yêu cầu</li>
+            <li>Tạo mới yêu cầu</li>
+            <li>Cấp đơn sức khỏe nhóm</li>
+            <li>Báo cáo</li>
+        </ul>
+    </div>
+    <div class="content">
+        <h2>Sức khỏe nhóm</h2>
+        <div class="search-bar">
+            <input type="text" placeholder="Tìm kiếm khách hàng">
+            <button>🔍</button>
+        </div>
+        <button>Thêm khách hàng</button>
+        <table>
+            <tr>
+                <th>Số hợp đồng</th>
+                <th>Tên khách hàng</th>
+                <th>Ngày phát sinh hợp đồng</th>
+                <th>Gốc</th>
+                <th>Bổ sung</th>
+                <th>Giảm</th>
+                <th>Trạng thái</th>
+            </tr>
+            <tr>
+                <td>HDBank</td>
+                <td>10/01/2025</td>
+                <td>1</td>
+                <td>10.000</td>
+                <td>2</td>
+                <td>20.000</td>
+                <td class="status">Status</td>
+            </tr>
+            <tr>
+                <td>PD1_1</td>
+                <td>15/01/2025</td>
+                <td>1</td>
+                <td>10.000</td>
+                <td></td>
+                <td></td>
+                <td class="status">Status</td>
+            </tr>
+            <tr>
+                <td>PD1_2</td>
+                <td>20/01/2025</td>
+                <td>1</td>
+                <td>10.000</td>
+                <td></td>
+                <td></td>
+                <td class="status">Status</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

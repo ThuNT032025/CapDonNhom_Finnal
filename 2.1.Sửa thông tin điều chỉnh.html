@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sửa Thông Tin Khách Hàng</title>
+    <style>
+        body {
+            font-family: Nunito, sans-serif;
+            background-color: #e8f5e9; /* Màu xanh nhạt */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 1000px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            color: #1b5e20; /* Màu xanh đậm */
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            color: #1b5e20;
+        }
+
+        input, select {
+            width: calc(100% - 10px);
+            padding: 8px;
+            border: 1px solid #81c784;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        input:disabled {
+            background-color: #e0e0e0;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-group-half {
+            width: 48%;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 160px;
+            height: 50px;
+            padding: 15px;
+            background-color: #2e7d32; /* Màu xanh đậm */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #1b5e20;
+            transform: scale(1.2);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        /* Nút Hủy */
+        .btn-cancel {
+            background-color: #d32f2f; /* Màu đỏ */
+        }
+
+        .btn-cancel:hover {
+            background-color: #b71c1c;
+        }
+		    .custom-select {
+        color: gray;
+		}
+		.custom-select option {
+			color: black;
+		}
+	    .link-button {
+            display: inline-block;
+            background: white;
+            color: #007BFF;
+            text-decoration: none;
+            padding: 7px 12px;
+            border-radius: 0px;
+            font-size: 14px;
+            margin-top: 17px;
+            text-align: center-left;
+			font-style: italic;
+			font-weight: 900;
+			text-decoration: underline;
+        }
+		.link-button:hover {
+			background: #A9DFA9;
+			transform: scale(1.1);
+			transition: transform 0.2s ease-in-out;
+	}
+    </style>
+
+    <script>
+        function closePage(event) {
+            event.preventDefault();
+            window.history.back();
+        }
+//Show Chọn gói bảo hiểm
+		document.getElementById("goiBaohiem").addEventListener("change", function() {
+		this.style.color = this.value ? "black" : "gray";});
+//Load dữ liệu từ màn 2 btn Sửa
+		document.addEventListener("DOMContentLoaded", function () {
+			let editData = localStorage.getItem("editPerson");
+			if (editData) {
+				let person = JSON.parse(editData);
+
+				// Duyệt qua tất cả key trong dữ liệu và điền vào form nếu có ID trùng khớp
+				Object.keys(person).forEach(key => {
+					let inputField = document.getElementById(key);
+					if (inputField) {
+						inputField.value = person[key] || ""; // Nếu không có dữ liệu thì gán rỗng
+					}
+				});
+			}
+		});
+		let personData = {
+			id: row.id,
+			name: row.querySelector("#name").innerText,
+			goiBaohiem: row.querySelector("#goiBaohiem").value,
+			adjustmentType: row.querySelector("#adjustmentType").innerText,
+			fee: row.querySelector("#fee").value,
+			dob: row.querySelector("#dob").value,
+			idCard: row.querySelector("#idCard").innerText,
+			email: row.querySelector("#email").innerText,
+			startDate: row.querySelector("#startDate").value,
+			endDate: row.querySelector("#endDate").value,
+			certificate: row.querySelector("#certificate").innerText,
+			sourceTable: "danhSachNguoiBaoHiem" // Đánh dấu nguồn
+		};
+		localStorage.setItem("editPerson", JSON.stringify(personData));
+
+
+
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <h2>Điều chỉnh thông tin</h2>
+        <form>
+            <div class="form-row">
+                <div class="form-group form-group-half">
+                    <label>Tên người được bảo hiểm</label>
+                    <input id="name" type="text" name="tenKhachHang" required>
+                </div>
+                <div class="form-group form-group-half">
+                    <label>Ngày sinh</label>
+                    <input id="dob" type="date" name="ngaySinh" required>
+                </div>
+			</div>
+
+            <div class="form-row">
+			   <div class="form-group form-group-half">
+                <label>Giới tính:</label>
+                <select id="GT">
+                    <option>Nam</option>
+                    <option>Nữ</option>
+                </select>
+				</div>
+				<div class="form-group form-group-half">
+                    <label>ID Card</label>
+                    <input id ="idCard" type="text" name="idCard" required>
+                </div>
+
+
+            </div>
+
+            <div class="form-row">
+			    <div class="form-group form-group-half">
+                    <label>Số điện thoại</label>
+                    <input id="phone" type="text" name="soDienThoai" required>
+                </div>
+				<div class="form-group form-group-half">
+                    <label>Email</label>
+                    <input id="email" type="email" name="email" required>
+                </div>
+
+
+            </div>
+
+            <div class="form-row">
+				<div class="form-group form-group-half">
+					<label>Gói bảo hiểm</label>
+					<select name="goiBaohiem" id="goiBaohiem" class="custom-select">
+						<option value="" disabled selected hidden>Chọn gói bảo hiểm</option>
+						<option value="Goi1">SK_VJ_01_Nhân viên</option>
+						<option value="Goi2">SK_VJ_02_Quản lý</option>
+					</select>
+				</div>
+				<div class="form-group form-group-half">
+						<a href="2.2.XemCT.html" class="link-button" >Xem chi tiết quyền lợi</a>
+				</div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-half">
+                    <label>Phí</label>
+                    <input id="fee" type="number" name="phi" step="0.01" required>
+                </div>
+				<div class="form-group form-group-half">
+                    <label>Nguyên tệ</label>
+                    <select name="nguyenTe">
+                        <option value="VND" selected>VND</option>
+                        <option value="USD">USD</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group form-group-half">
+                    <label>Ngày bắt đầu hiệu lực</label>
+                    <input id="startDate" type="datetime-local" name="ngayBatDau" required>
+                </div>
+                <div class="form-group form-group-half">
+                    <label>Ngày kết thúc hiệu lực</label>
+                    <input id="endDate" type="datetime-local" name="ngayKetThuc" required>
+                </div>
+            </div>
+			<div class="form-row">
+                <div class="form-group form-group-half">
+                    <label>Loại</label>
+                    <select id ="adjustmentType" name="loai">
+						<option value="Gốc">Gốc</option>
+                        <option value="Tăng">Tăng</option>
+                        <option value="Giảm">Giảm</option>
+                        <option value="Thay đổi thông tin">Thay đổi thông tin</option>
+                        <option value="Thay đổi thông tin phí">Thay đổi thông tin phí</option>
+                    </select>
+                </div>
+				<div class="form-group form-group-half" id="certificateField">
+					<label>Số Giấy Chứng Nhận</label>
+					<input id ="certificate" type="text" name="soGCN" disabled>
+				</div>
+			</div>
+            <div class="actions">
+			<button type="cancel" class="btn" onclick="closePage(event)">Hủy</button>
+            <button type="submit" class="btn" onclick="closePage(event)">Lưu Thay Đổi</button>
+
+            </div>
+        </form>
+    </div>
+<script>
+//Load fill dữ liệu
+function fillRowData(row, data) {
+    Object.keys(data).forEach(key => {
+        let cell = row.querySelector(`#${key}`);
+        
+        if (cell) {
+            if (cell.tagName === "INPUT" || cell.tagName === "SELECT") {
+                cell.value = data[key]; // Nếu là input/select thì gán bằng value
+            } else {
+                cell.innerText = data[key]; // Nếu là text trong <td> thì dùng innerText
+            }
+        }
+    });
+}
+
+		document.addEventListener("DOMContentLoaded", function () {
+			let editData = localStorage.getItem("editPerson");
+			if (editData) {
+				let person = JSON.parse(editData);
+				Object.keys(person).forEach(key => {
+					let inputField = document.getElementById(key);
+					if (inputField) {
+						inputField.value = person[key] || ""; // Điền dữ liệu vào các input
+					}
+				});
+			}
+		});
+//Load ẩn/hiện Số GCN
+		document.addEventListener("DOMContentLoaded", function () {
+			var adjustmentTypeSelect = document.getElementById("adjustmentType");
+			var certificateField = document.getElementById("certificateField");
+
+			if (!adjustmentTypeSelect || !certificateField) {
+				console.error("❌ Không tìm thấy phần tử cần thiết!");
+				return;
+			}
+
+			function checkAdjustmentType() {
+				if (adjustmentTypeSelect.value === "Gốc" || adjustmentTypeSelect.value === "Tăng") {
+					certificateField.style.display = "none"; // Ẩn trường
+				} else {
+					certificateField.style.display = "flex"; // Hiển thị trường
+				}
+			}
+
+			// Kiểm tra ngay khi trang tải
+			checkAdjustmentType();
+
+			// Lắng nghe sự thay đổi của dropdown
+			adjustmentTypeSelect.addEventListener("change", function () {
+				checkAdjustmentType();
+			});
+		});
+
+</script>
+
+</body>
+</html>
+
+</script>
+</body>
+
+</html>

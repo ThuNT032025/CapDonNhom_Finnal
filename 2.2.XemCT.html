@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Chương Trình</title>
+    <style>
+        body {
+            font-family: Nunito, sans-serif;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 1000px;
+            text-align: center;
+        }
+        h2 {
+            color: #1b5e20;
+        }
+        .info {
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-align: left;
+        }
+        .info label {
+            font-weight: bold;
+            color: #1b5e20;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #81c784;
+            color: white;
+        }
+        .download-link {
+            color: #1b5e20;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .download-link:hover {
+            text-decoration: underline;
+        }
+        .btn {
+            display: inline-block;
+            width: 160px;
+            height: 50px;
+            padding: 15px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #1b5e20;
+            transform: scale(1.2);
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Chi Tiết Chương Trình</h2>
+        <div class="info"><label>Mã chương trình:</label> CT-001</div>
+        <div class="info"><label>Tên chương trình:</label> Chương trình Bảo hiểm Toàn Diện</div>
+        <div class="info"><label>Mã KH - Tên Khách hàng:</label> KH123 - Nguyễn Văn A</div>
+        
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Mã gói</th>
+                    <th>Tên gói</th>
+                    <th>Phí</th>
+                    <th>Xem Quyền lợi</th>
+                </tr>
+                <tr>
+                    <td>G01</td>
+                    <td>Gói Cơ bản</td>
+                    <td>1.500.000 VND</td>
+                    <td><a href="#" class="download-link">Tải về</a></td>
+                </tr>
+                <tr>
+                    <td>G02</td>
+                    <td>Gói Nâng cao</td>
+                    <td>3.000.000 VND</td>
+                    <td><a href="#" class="download-link">Tải về</a></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="btn-container">
+            <a href="Capdon_2.html">
+                <button class="btn">Đóng</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

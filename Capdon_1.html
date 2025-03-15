@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin bảo hiểm</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+			margin-left: 5px;
+			margin-right: 5px;
+        }
+  .container {
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    padding: 20px; /* Giữ padding tổng thể */
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow: hidden; /* Thêm dòng này để tránh bị tràn */
+}
+        h2 {
+            text-align: center;
+            color: #2C7B2C;
+            margin-bottom: 15px;
+        }
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            background: #D4EDDA;
+            color: black;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .step.active {
+            background: #2C7B2C;
+            color: white;
+        }
+        .section {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: 600;
+        }
+input, select {
+    padding: 7px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: calc(100% - 8px); /* Giảm bớt để không bị tràn */
+    box-sizing: border-box; /* Đảm bảo padding không làm tràn */
+}
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+        .row > div {
+            flex: 1;
+        }
+		.btn {
+			display: inline-block; /* Giữ nút hiển thị theo hàng */
+			width: 160px; /* Độ rộng cố định */
+			height: 50px; /* Độ cao cố định */
+			padding: 15px 20px; /* Tăng khoảng cách bên trong */
+			background-color: #28a745;
+			color: white;
+			border: none;
+			margin-right:10px;
+			border-radius: 8px;
+			font-size: 18px; /* Tăng kích thước chữ */
+			font-weight: bold; /* Chữ đậm hơn */
+			text-align: center;
+			cursor: pointer;
+			transition: background 0.3s, transform 0.2s;
+		}
+
+		.btn:hover {
+			background-color: #1A6E2E;
+			transform: scale(1.2); /* Hiệu ứng phóng to nhẹ khi hover */
+		}
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 12px;
+
+        }
+		.red_color{
+		color: red;
+		}
+    </style>
+<script>
+    function toggleCustomerTypeFields() {
+        var customerType = document.getElementById('customerType').value;
+        var personalSection = document.getElementById('personalSection');
+        var groupSection = document.getElementById('groupSection');
+
+        if (customerType === 'Cá nhân') {
+            personalSection.style.display = 'block';
+            groupSection.style.display = 'none';
+            toggleContractFields('personal');
+        } else if (customerType === 'Nhóm') {
+            personalSection.style.display = 'none';
+            groupSection.style.display = 'block';
+            toggleContractFields('group');
+        } else {
+            personalSection.style.display = 'none';
+            groupSection.style.display = 'none';
+        }
+    }
+
+    function toggleContractFields(type) {
+        if (type === 'personal') {
+            var contractType = document.getElementById('contractType').value;
+            var contractGocSection = document.getElementById('contractGocSection');
+            var contractSDBSSection = document.getElementById('contractSDBSSection');
+
+            if (contractType === 'Hợp đồng Gốc') {
+                contractGocSection.style.display = 'block';
+                contractSDBSSection.style.display = 'none';
+            } else if (contractType === 'Hợp đồng SĐBS') {
+                contractGocSection.style.display = 'block';
+                contractSDBSSection.style.display = 'block';
+            } else {
+                contractGocSection.style.display = 'none';
+                contractSDBSSection.style.display = 'none';
+            }
+        } else if (type === 'group') {
+            var contractTypeGroup = document.getElementById('contractTypeGroup').value;
+            var contractGocSectionGroup = document.getElementById('contractGocSectionGroup');
+            var contractSDBSSectionGroup = document.getElementById('contractSDBSSectionGroup');
+
+            if (contractTypeGroup === 'Hợp đồng Gốc') {
+                contractGocSectionGroup.style.display = 'block';
+                contractSDBSSectionGroup.style.display = 'none';
+            } else if (contractTypeGroup === 'Hợp đồng SĐBS') {
+                contractGocSectionGroup.style.display = 'block';
+                contractSDBSSectionGroup.style.display = 'block';
+            } else {
+                contractGocSectionGroup.style.display = 'none';
+                contractSDBSSectionGroup.style.display = 'none';
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        setActiveStep(0);
+
+        let customerType = localStorage.getItem("customerType") || ''; 
+        let LoaiHD = localStorage.getItem("contractType") || ''; 
+        let LoaiHDGroup = localStorage.getItem("contractTypeGroup") || ''; 
+
+        const contractInput = document.getElementById("contractType");
+        const contractInputGroup = document.getElementById("contractTypeGroup");
+        const customerTypeInput = document.getElementById("customerType");
+
+        if (customerTypeInput && customerType) {
+            customerTypeInput.value = customerType;
+            toggleCustomerTypeFields(); // Gọi lại để cập nhật giao diện
+        }
+
+        if (contractInput && LoaiHD) {
+            contractInput.value = LoaiHD;
+            toggleContractFields('personal'); // Đảm bảo hiển thị đúng hợp đồng cá nhân
+        }
+
+        if (contractInputGroup && LoaiHDGroup) {
+            contractInputGroup.value = LoaiHDGroup;
+            toggleContractFields('group'); // Đảm bảo hiển thị đúng hợp đồng nhóm
+        }
+    });
+
+    function saveContractType() {
+        let contractType = document.getElementById("contractType").value;
+        let contractTypeGroup = document.getElementById("contractTypeGroup").value;
+        let customerType = document.getElementById("customerType").value;
+
+        localStorage.setItem("contractType", contractType);
+        localStorage.setItem("contractTypeGroup", contractTypeGroup);
+        localStorage.setItem("customerType", customerType);
+    }
+
+    function setActiveStep(stepIndex) {
+        document.querySelectorAll('.step').forEach((step, index) => {
+            step.classList.toggle('active', index === stepIndex);
+        });
+    }
+</script>
+
+</head>
+<body>
+
+<div class="container">
+    <h2>Nhập thông tin bảo hiểm</h2>
+
+    <!-- Steps -->
+    <div class="steps">
+        <div class="step" onclick="setActiveStep(0)">Bước 1: Chủ hợp đồng</div>
+        <div class="step" onclick="setActiveStep(1)">Bước 2: Thông tin bảo hiểm</div>
+        <div class="step" onclick="setActiveStep(2)">Bước 3: Xác nhận</div>
+    </div>
+
+    <!-- Chọn phân loại khách hàng -->
+    <div class="section">
+        <label>Chọn phân loại khách hàng:<b class="red_color">*</b></label>
+        <select id="customerType" onchange="toggleCustomerTypeFields()">
+            <option value="">Chọn phân loại khách hàng</option>
+            <option value="Cá nhân">Cá nhân</option>
+            <option value="Nhóm">Nhóm</option>
+        </select>
+    </div>
+
+    <!-- Phần thông tin Cá nhân -->
+    <div id="personalSection" style="display: none;">
+        <!-- ID Khách hàng và Loại hợp đồng -->
+        <div class="section row">
+            <div>
+                <label>ID Khách hàng <b class="red_color">*</b></label>
+                <input type="text" placeholder="Nhập ID Khách hàng">
+            </div>
+			<div>
+				<label>Loại hợp đồng <b class="red_color">*</b></label>
+				<select id="contractType" onchange="saveContractType(); toggleContractFields('personal')">
+					<option value="">Chọn loại hợp đồng</option>
+					<option value="Hợp đồng Gốc">Hợp đồng Gốc</option>
+					<option value="Hợp đồng SĐBS">Hợp đồng SĐBS</option>
+				</select>
+			</div>
+        </div>
+
+        <!-- Số hợp đồng gốc -->
+        <div class="section" id="contractGocSection" style="display: none;">
+            <label>Số hợp đồng gốc<b class="red_color">*</b></label>
+            <input type="text" placeholder="Nhập Số hợp đồng gốc">
+        </div>
+
+        <!-- Số hợp đồng SĐBS -->
+        <div class="section" id="contractSDBSSection" style="display: none;">
+            <label>Số hợp đồng SĐBS<b class="red_color">*</b></label>
+            <input type="text" placeholder="Nhập Số hợp SĐBS">
+        </div>
+
+        <!-- Thông tin Cá nhân -->
+        <div class="section row">
+            <div>
+                <label>Họ và tên<b class="red_color">*</b></label>
+                <input type="text" placeholder="Nhập họ và tên">
+            </div>
+            <div>
+                <label>CCCD/CC/Hộ chiếu<b class="red_color">*</b></label>
+                <input type="text" placeholder="Nhập số CCCD/CC/Hộ chiếu">
+            </div>
+        </div>
+
+        <!-- Ngày sinh và Giới tính -->
+        <div class="section row">
+            <div>
+                <label>Ngày sinh:</label>
+                <input type="date">
+            </div>
+            <div>
+                <label>Giới tính:</label>
+                <select>
+                    <option>Nam</option>
+                    <option>Nữ</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Email và Số điện thoại -->
+        <div class="section row">
+            <div>
+                <label>Email:</label>
+                <input type="email" placeholder="Nhập email">
+            </div>
+            <div>
+                <label>Số điện thoại:</label>
+                <input type="text" placeholder="Nhập số điện thoại">
+            </div>
+        </div>
+
+        <!-- Địa chỉ -->
+        <div class="section">
+            <label>Địa chỉ:</label>
+            <input type="text" placeholder="Nhập địa chỉ">
+        </div>
+    </div>
+
+    <!-- Phần thông tin Nhóm (Tổ chức) -->
+    <div id="groupSection" style="display: none;">
+        <!-- ID Khách hàng và Loại hợp đồng -->
+        <div class="section row">
+            <div>
+                <label>ID Khách hàng<b class="red_color">*</b></label>
+                <input type="text" placeholder="Nhập ID Khách hàng">
+            </div>
+            <div>
+                <label>Loại hợp đồng<b class="red_color">*</b></label>
+                <select id="contractTypeGroup" onchange="toggleContractFields('group')">
+                    <option value="">Chọn loại hợp đồng</option>
+                    <option value="Hợp đồng Gốc">Hợp đồng Gốc</option>
+                    <option value="Hợp đồng SĐBS">Hợp đồng SĐBS</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Số hợp đồng gốc -->
+        <div class="section" id="contractGocSectionGroup" style="display: none;">
+            <label>Số hợp đồng gốc<b class="red_color">*</b></label>
+            <input type="text" placeholder="Nhập Số hợp đồng gốc">
+        </div>
+
+        <!-- Số hợp đồng SĐBS -->
+        <div class="section" id="contractSDBSSectionGroup" style="display: none;">
+            <label>Số hợp đồng SĐBS<b class="red_color">*</b></label>
+            <input type="text" placeholder="Nhập Số hợp SĐBS">
+        </div>
+
+        <!-- Thông tin Nhóm (Tổ chức) -->
+        <div class="section row">
+            <div>
+                <label>Tên tổ chức<b class="red_color">*</b></label>
+                <input type="text" placeholder="Nhập tên tổ chức">
+            </div>
+            <div>
+                <label>Mã số thuế<b class="red_color">*</b></label>
+                <input type="text" placeholder="Nhập mã số thuế">
+            </div>
+        </div>
+
+        <div class="section row">
+            <div>
+                <label>Người đại diện:</label>
+                <input type="text" placeholder="Nhập người đại diện">
+            </div>
+            <div>
+                <label>Số điện thoại:</label>
+                <input type="text" placeholder="Nhập số điện thoại">
+            </div>
+        </div>
+
+        <div class="section">
+            <label>Email:</label>
+            <input type="email" placeholder="Nhập email">
+        </div>
+
+        <div class="section">
+            <label>Địa chỉ:</label>
+            <input type="text" placeholder="Nhập địa chỉ">
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="actions">
+		<a href="Capdon_2.html">
+        <button class="btn">Tiếp tục</button>
+		</a>
+    </div>
+</div>
+
+</body>
+</html>

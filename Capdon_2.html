@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin bảo hiểm</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+			margin-left: 5px;
+			margin-right: 5px;
+        }
+        .container {
+            max-width: 1600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+			padding-left: 5px;
+			padding-right: 5px;
+			border-radius: 8px;
+			box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+			box-sizing: border-box;
+			overflow: hidden; /* Thêm dòng này để tránh bị tràn */
+        }
+        h2 {
+            text-align: center;
+            color: #2C7B2C;
+            margin-bottom: 15px;
+        }
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            background: #d4edda;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .active {
+            background: #2C7B2C;
+            color: white;
+        }
+        .section {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: 600;
+        }
+        input, select {
+            padding: 7px;
+            margin-top: 5px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+			width: calc(100% - 8px); /* Giảm bớt để không bị tràn */
+			box-sizing: border-box; /* Đảm bảo padding không làm tràn */
+        }
+		.row {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap; /* Cho phép xuống dòng nếu không đủ chỗ */
+		}
+        .row > div {
+            flex: 1;
+        }
+        .link-button {
+            display: inline-block;
+            background: white;
+            color: #007BFF;
+            text-decoration: none;
+            padding: 7px 12px;
+            border-radius: 0px;
+            font-size: 14px;
+            margin-top: 8px;
+            text-align: center;
+			font-style: italic;
+			font-weight: 900;
+			text-decoration: underline;
+        }
+		.link-button:hover {
+			background: #A9DFA9;
+			transform: scale(1.1);
+			transition: transform 0.2s ease-in-out;
+	}
+
+        .search-box {
+            position: relative;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 7px 0px;
+        }
+        .search-box i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-20%);
+            color: #777;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background: #2C7B2C;
+            color: white;
+        }
+	.btn {
+		display: inline-block; /* Giữ nút hiển thị theo hàng */
+		width: 150px; /* Độ rộng cố định */
+		height: 50px; /* Độ cao cố định */
+		padding: 15px 20px; /* Tăng khoảng cách bên trong */
+		background-color: #28a745;
+		color: white;
+		border: none;
+		border-radius: 8px;
+		font-size: 18px; /* Tăng kích thước chữ */
+		font-weight: bold; /* Chữ đậm hơn */
+		text-align: center;
+		cursor: pointer;
+		transition: background 0.3s, transform 0.2s;
+		margin-right:10px;
+		margin-left:10px;
+	}
+
+	.btn:hover {
+		background-color: #1A6E2E;
+		transform: scale(1.2); /* Hiệu ứng phóng to nhẹ khi hover */
+	}
+	
+		.btn_file {
+		display: inline-block; /* Giữ nút hiển thị theo hàng */
+		width: 220px; /* Độ rộng cố định */
+		height: 50px; /* Độ cao cố định */
+		padding: 15px 20px; /* Tăng khoảng cách bên trong */
+		background-color: #D9F2E0;
+		color: black;
+		border: none;
+		border-radius: 8px;
+		font-size: 18px; /* Tăng kích thước chữ */
+		font-weight: bold; /* Chữ đậm hơn */
+		text-align: center;
+		cursor: pointer;
+		transition: background 0.3s, transform 0.2s;
+	}
+
+	.btn_file:hover {
+		background-color: #218838;
+		color: white;
+		transform: scale(1.2); /* Hiệu ứng phóng to nhẹ khi hover */
+	}
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+        }
+        .action-list a {
+            display: block;
+            padding: 5px 0;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .action-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var contractTypeSelect = document.getElementById("contractType");
+		var danhSachNguoiBaoHiem = document.getElementById("danhSachNguoiBaoHiem");
+
+		// Kiểm tra nếu contractTypeSelect tồn tại trước khi thao tác
+		if (contractTypeSelect) {
+			// Lấy giá trị hợp đồng từ localStorage
+			var savedContractType = localStorage.getItem("contractType") || '';
+
+			// Nếu có giá trị đã lưu, cập nhật vào select
+			if (savedContractType) {
+				contractTypeSelect.value = savedContractType;
+			}
+
+			// Kiểm tra và cập nhật giao diện
+			checkContractType();
+
+			// Lắng nghe sự thay đổi của dropdown để cập nhật localStorage
+			contractTypeSelect.addEventListener("change", function () {
+				localStorage.setItem("contractType", this.value);
+				checkContractType();
+			});
+		}
+
+		// Hàm kiểm tra và hiển thị danh sách
+		function checkContractType() {
+			if (contractTypeSelect && contractTypeSelect.value === "Hợp đồng Gốc") {
+				danhSachNguoiBaoHiem.style.display = "none"; // Ẩn danh sách
+			} else if (contractTypeSelect && contractTypeSelect.value === "Hợp đồng SĐBS") {
+				danhSachNguoiBaoHiem.style.display = "block"; // Hiển thị danh sách
+			} else {
+				danhSachNguoiBaoHiem.style.display = "none"; // Nếu giá trị không hợp lệ
+			}
+		}
+	});
+
+// Xử lý giảm phí bồi thường
+		document.addEventListener("DOMContentLoaded", function () {
+			let checkboxes = document.querySelectorAll("input[name='boiThuong']"); // Lấy tất cả checkbox "Đã bồi thường"
+
+			checkboxes.forEach(function (checkbox) {
+				let row = checkbox.closest("tr"); // Tìm dòng chứa checkbox
+				let feeCell = row ? row.querySelector("#fee") : null; // Tìm ô phí trong dòng đó
+
+				if (feeCell) {
+					let giaTriGoc = feeCell.textContent.trim(); // Lưu giá trị gốc của phí
+
+					checkbox.addEventListener("change", function () {
+						if (this.checked) {
+							feeCell.setAttribute("data-old-value", giaTriGoc); // Lưu giá trị gốc vào thuộc tính data
+							feeCell.textContent = "0"; // Khi chọn → phí = 0
+						} else {
+							let oldValue = feeCell.getAttribute("data-old-value") || giaTriGoc;
+							feeCell.textContent = oldValue; // Khi bỏ chọn → khôi phục phí ban đầu
+						}
+					});
+				}
+			});
+		});
+
+// Hàm 1: lưu thông tin điều chỉnh vào localStorage khi nhấn "Sửa"
+	function saveEditInfo(element) {
+		let row = element.closest("tr"); // Lấy dòng chứa nút "Sửa"
+
+		if (row) {
+			let personData = {
+				id: row.id,
+				name: row.querySelector("#name")?.innerText || '',
+				goiBaohiem: row.querySelector("#goiBaohiem")?.value || '',
+				adjustmentType: row.querySelector("#adjustmentType")?.innerText || '',
+				fee: row.querySelector("#fee")?.innerText || '',
+				dob: row.querySelector("#dob")?.innerText || '',
+				idCard: row.querySelector("#idCard")?.innerText || '',
+				email: row.querySelector("#email")?.innerText || '',
+				startDate: row.querySelector("#startDate")?.innerText || '',
+				endDate: row.querySelector("#endDate")?.innerText || '',
+				certificate: row.querySelector("#certificate")?.innerText || ''
+			};
+
+			localStorage.setItem("editPerson", JSON.stringify(personData));
+			//alert("Đã lưu thông tin điều chỉnh vào bộ nhớ trình duyệt!");
+			window.location.href = "2.1-SuaThongTin.html";
+		}
+	}
+	// ✅ Hàm 2: Lưu thông tin cho ID mới (`NDBH_<name>`)
+function saveEditInfo_NewID(element) {
+    let row = element.closest("tr"); // Lấy dòng chứa nút bấm
+    if (!row) {
+        console.error("❌ Không tìm thấy dòng chứa thông tin.");
+        return;
+    }
+
+    let personData = {
+        id: row.id,
+        name: row.querySelector("#NDBH_name")?.innerText.trim() || '',
+        goiBaohiem: row.querySelector("#NDBH_goiBaohiem")?.innerText.trim() || '',
+        fee: row.querySelector("#NDBH_fee")?.innerText.trim() || '',
+        dob: row.querySelector("#NDBH_dob")?.innerText.trim() || '',
+        idCard: row.querySelector("#NDBH_idCard")?.innerText.trim() || '',
+        email: row.querySelector("#NDBH_email")?.innerText.trim() || '',
+        startDate: row.querySelector("#NDBH_startDate")?.innerText.trim() || '',
+        endDate: row.querySelector("#NDBH_endDate")?.innerText.trim() || '',
+        certificate: row.querySelector("#NDBH_certificate")?.innerText.trim() || ''
+    };
+
+    localStorage.setItem("editPerson_New", JSON.stringify(personData));
+    //alert("Đã lưu thông tin điều chỉnh vào bộ nhớ trình duyệt!");
+    window.location.href = "2.3.Điều_chỉnh_dsNĐBH.html";
+}
+
+
+</script>
+
+<body>
+
+<div class="container">
+    <h2>Nhập thông tin bảo hiểm</h2>
+
+    <!-- Steps -->
+    <div class="steps">
+        <div class="step">Bước 1: Chủ hợp đồng</div>
+        <div class="step active">Bước 2: Thông tin bảo hiểm</div>
+        <div class="step">Bước 3: Xác nhận</div>
+    </div>
+	
+    <div class="section row">
+	<div>
+        <label>Chương trình bảo hiểm:</label>
+        <select>
+            <option>Mã chương trình A - Tên Chương trình A</option>
+            <option>Mã chương trình B - Tên Chương trình B</option>
+        </select>
+        <a href="2.2.XemCT.html" class="link-button">Xem chi tiết</a>
+    </div>
+<div>
+    <label>
+        Loại hợp đồng:
+        <select id="contractType" name="contractType">
+            <option value="Hợp đồng SĐBS" selected>Hợp đồng SĐBS</option>
+            <option value="Hợp đồng Gốc">Hợp đồng gốc</option>
+        </select>
+    </label>
+</div>
+	    <div >
+        <label>Ngày cấp:</label>
+        <input type="date">
+    </div>
+
+	</div>
+
+
+    <div class="section row">
+        <div>
+            <label>Ngày bắt đầu hiệu lực:</label>
+            <input type="datetime-local">
+        </div>
+        <div>
+            <label>Ngày kết thúc hiệu lực:</label>
+            <input type="datetime-local">
+        </div>
+    </div>
+
+    <div class="section" id="danhSachNguoiBaoHiem">
+        <h3>Danh sách người được bảo hiểm</h3>
+		<div style="display: flex; align-items: center; gap: 10px;">
+			<div style="width: 75%; display: flex; align-items: center;" class="search-box">
+				<i class="fas fa-search"></i>
+				<input type="text" placeholder="Tìm kiếm...">
+			</div>
+			<div style="width: 25%; padding: 8px 15px;" class="flex gap-4 mb-4">
+            <button class="btn_file">Tải danh sách NĐBH</button>
+			</div>
+		</div>
+
+<table>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên khách hàng</th>
+                    <th>Gói bảo hiểm</th>
+                    <th>Phí</th>
+                    <th>Ngày sinh</th>
+                    <th>ID Card</th>
+                    <th>Email</th>
+                    <th>Ngày bắt đầu</th>
+					<th>Ngày kết thúc</th>
+                    <th>Số Giấy Chứng Nhận</th>
+                    <th>Thao tác</th> <!-- Thêm cột "Xem Giấy Chứng Nhận" -->
+                </tr>
+            </thead>
+            <tbody>
+							   <tr id="NDBH1">
+					<td id="NDBH_stt">1</td>
+					<td id="NDBH_name">Nguyễn Văn A</td>
+					<td id="NDBH_goiBaohiem">SK_VJ_01_Nhân viên</td>
+					<td id="NDBH_fee">1.750.000</td>
+					<td id="NDBH_dob">01/01/1985</td>
+					<td id="NDBH_idCard">987654321</td>
+					<td id="NDBH_email">abc@gmail.com</td>
+					<td id="NDBH_startDate">01/01/2023 00:00</td>
+					<td id="NDBH_endDate">01/01/2024 00:00</td>
+					<td id="NDBH_certificate">GCN-001</td>
+					<td class="action-list">
+						<a class="link-button" href="#">Xem GCN</a>
+						<a class="link-button" href="2.3.Điều_chỉnh_dsNĐBH.html" onclick="saveEditInfo_NewID(this);">Điều chỉnh</a>
+						<a class="link-button" href="#">Gửi lại GCN</a>
+					</td>
+				</tr>
+
+				<tr id="NDBH2">
+					<td id="NDBH_stt">2</td>
+					<td id="NDBH_name">Nguyễn Thị B</td>
+					<td id="NDBH_goiBaohiem">SK_VJ_01_Nhân viên</td>
+					<td id="NDBH_fee">1.750.000</td>
+					<td id="NDBH_dob">12/02/1990</td>
+					<td id="NDBH_idCard">234234234</td>
+					<td id="NDBH_email">bcd@gmail.com</td>
+					<td id="NDBH_startDate">01/02/2023 00:00</td>
+					<td id="NDBH_endDate">01/02/2024 00:00</td>
+					<td id="NDBH_certificate">GCN-002</td>
+					<td class="action-list">
+						<a class="link-button" href="#">Xem GCN</a>
+						<a class="link-button" href="2.3.Điều_chỉnh_dsNĐBH.html" onclick="saveEditInfo_NewID(this);">Điều chỉnh</a>
+						<a class="link-button" href="#">Gửi lại GCN</a>
+					</td>
+				</tr>
+
+				<tr id="NDBH3">
+					<td id="NDBH_stt">3</td>
+					<td id="NDBH_name">Trần Văn C</td>
+					<td id="NDBH_goiBaohiem">SK_VJ_01_Nhân viên</td>
+					<td id="NDBH_fee">1.750.000</td>
+					<td id="NDBH_dob">15/03/1982</td>
+					<td id="NDBH_idCard">345345345</td>
+					<td id="NDBH_email">efg@gmail.com</td>
+					<td id="NDBH_startDate">15/03/2023 00:00</td>
+					<td id="NDBH_endDate">15/03/2024 00:00</td>
+					<td id="NDBH_certificate">GCN-003</td>
+					<td class="action-list">
+						<a class="link-button" href="#">Xem GCN</a>
+						<a class="link-button" href="2.3.Điều_chỉnh_dsNĐBH.html" onclick="saveEditInfo_NewID(this);">Điều chỉnh</a>
+						<a class="link-button" href="#">Gửi lại GCN</a>
+					</td>
+				</tr>
+
+				<tr id="NDBH4">
+					<td id="NDBH_stt">4</td>
+					<td id="NDBH_name">Phạm Thị D</td>
+					<td id="NDBH_goiBaohiem">SK_VJ_02_Quản lý</td>
+					<td id="NDBH_fee">2.580.000</td>
+					<td id="NDBH_dob">20/06/1995</td>
+					<td id="NDBH_idCard">456456456</td>
+					<td id="NDBH_email">hij@gmail.com</td>
+					<td id="NDBH_startDate">20/06/2023 00:00</td>
+					<td id="NDBH_endDate">20/06/2024 00:00</td>
+					<td id="NDBH_certificate">GCN-004</td>
+					<td class="action-list">
+						<a class="link-button" href="#">Xem GCN</a>
+						<a class="link-button" href="2.3.Điều_chỉnh_dsNĐBH.html" onclick="saveEditInfo_NewID(this);">Điều chỉnh</a>
+						<a class="link-button" href="#">Gửi lại GCN</a>
+					</td>
+				</tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3>Danh sách điều chỉnh</h3>
+        <div class="flex gap-4 mb-4">
+            <button class="btn_file">Tải file mẫu</button>
+            <button class="btn_file">Import dữ liệu</button>
+            <button class="btn_file">Nhập lẻ</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên khách hàng</th>
+                    <th>Gói bảo hiểm</th>
+                    <th>Loại</th>
+                    <th>Phí</th>
+                    <th>Ngày sinh</th>
+                    <th>ID Card</th>
+                    <th>Email</th>
+                    <th>Ngày bắt đầu</th>
+					<th>Ngày kết thúc</th>
+                    <th>Số Giấy Chứng Nhận</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="KHDC1">
+					<td>1</td>
+					<td id="name">Nguyễn Văn A</td>
+					<td id="goiBaohiem">SK_VJ_01_Nhân viên</td>
+					<td id="adjustmentType">Tăng</td>
+					<td id="fee">1.750.000</td>
+					<td id="dob">01/01/1985</td>
+					<td id="idCard">123123123</td>
+					<td id="email">abc@gmail.com</td>
+					<td id="startDate">01/01/2023 00:00</td>
+					<td id="endDate">01/01/2024 23:59</td>
+					<td id="certificate">GCN-001</td>
+					<td class="action-list">
+						<a class="link-button" href="#">Xem trước GCN</a>
+						<a class="link-button" href="2.1.Sửa thông tin điều chỉnh.html" onclick="saveEditInfo(this)" id="Update">Sửa</a>
+						<a class="link-button" href="#">Xóa</a>
+					</td>
+				</tr>
+
+				<tr id="KHDC2">
+					<td>2</td>
+					<td id="name">Nguyễn Thị B</td>
+					<td id="goiBaohiem">SK_VJ_01_Nhân viên</td>
+					<td id="adjustmentType">Giảm</td>
+					<td id="fee">1.750.000</td>
+					<td id="dob">12/02/1990</td>
+					<td id="idCard">234234234</td>
+					<td id="email">bcd@gmail.com</td>
+					<td id="startDate">01/02/2023 00:00</td>
+					<td id="endDate">01/02/2024 23:59</td>
+					<td id="certificate">GCN-002</td>
+					<td class="action-list">
+						<label style="display: flex; align-items: center; gap: 5px; white-space: nowrap;">
+							<input type="checkbox" name="boiThuong" id="boiThuong2"> Đã bồi thường
+						</label>
+						<a class="link-button" href="#">Xem trước GCN</a>
+						<a class="link-button" href="2.1.Sửa thông tin điều chỉnh.html" onclick="saveEditInfo(this)">Sửa</a>
+						<a class="link-button" href="#">Xóa</a>
+					</td>
+				</tr>
+
+				<tr id="KHDC3">
+					<td>3</td>
+					<td id="name">Trần Văn C</td>
+					<td id="goiBaohiem">SK_VJ_01_Nhân viên</td>
+					<td id="adjustmentType">Thay đổi thông tin</td>
+					<td id="fee">1.750.000</td>
+					<td id="dob">15/03/1982</td>
+					<td id="idCard">345345345</td>
+					<td id="email">efg@gmail.com</td>
+					<td id="startDate">15/03/2023 00:00</td>
+					<td id="endDate">15/03/2024 23:59</td>
+					<td id="certificate">GCN-003</td>
+					<td class="action-list">
+						<a class="link-button" href="#">Xem trước GCN</a>
+						<a class="link-button" href="2.1.Sửa thông tin điều chỉnh.html" onclick="saveEditInfo(this)">Sửa</a>
+						<a class="link-button" href="#">Xóa</a>
+					</td>
+				</tr>
+
+				<tr id="KHDC4">
+					<td>4</td>
+					<td id="name">Phạm Thị D</td>
+					<td id="goiBaohiem">SK_VJ_02_Quản lý</td>
+					<td id="adjustmentType">Thay đổi thông tin phí</td>
+					<td id="fee">2.580.000</td>
+					<td id="dob">20/06/1995</td>
+					<td id="idCard">456456456</td>
+					<td id="email">hij@gmail.com</td>
+					<td id="startDate">20/06/2023 00:00</td>
+					<td id="endDate">20/06/2024 23:59</td>
+					<td id="certificate">GCN-004</td>
+					<td class="action-list">
+						<a class="link-button" href="#">Xem trước GCN</a>
+						<a class="link-button" href="2.1.Sửa thông tin điều chỉnh.html" onclick="saveEditInfo(this)">Sửa</a>
+						<a class="link-button" href="#">Xóa</a>
+					</td>
+				</tr>
+
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="actions">
+		<a href="Capdon_1.html">
+        <button class="btn">Quay lại</button>
+		</a>
+		<a href="Capdon_3.html">
+        <button class="btn">Tiếp tục</button>
+		</a>
+    </div>
+</div>
+
+
+
+</body>
+</html>
