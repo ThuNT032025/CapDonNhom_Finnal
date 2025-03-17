@@ -231,10 +231,14 @@
 
         <!-- Footer and buttons -->
 <div class="footer">
-        <button type="close" class="btn" onclick="closePage(event)">Đóng</button>
+        <button type="button" class="btn" onclick="closePage(event)">Đóng</button>
 </div>
     </div>
 	<script>
+	function closePage(event) {
+            event.preventDefault();
+            window.history.back();
+        }
     function toggleDropdown() {
         document.getElementById("dropdownMenu").classList.toggle("show");
     }
