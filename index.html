@@ -69,6 +69,12 @@
             color: blue;
             cursor: pointer;
         }
+		        .expandable {
+            display: none; /* Ẩn dòng mở rộng ban đầu */
+        }
+        .contract-row {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -89,10 +95,10 @@
             <button>🔍</button>
         </div>
         <button><a href="Capdon_1.html">Cấp đơn</a></button>
-        <table>
+         <table>
             <tr>
-                <th rowspan="2">Số hợp đồng</th>
                 <th rowspan="2">Tên khách hàng</th>
+                <th rowspan="2">Số hợp đồng</th>
                 <th rowspan="2">Ngày phát sinh hợp đồng</th>
                 <th colspan="2">Gốc</th>
                 <th colspan="2">Bổ sung</th>
@@ -107,9 +113,13 @@
                 <th>Số đơn</th>
                 <th>Phí(VND)</th>
             </tr>
-            <tr>
+
+            <!-- Dòng gốc có expand -->
+            <tr class="contract-row" onclick="toggleExpand('expand-105', this)">
+                <td>
+                    <span class="arrow">▼</span> Ngân hàng phát triển HDBank
+                </td>
                 <td>PD0101HEA2500105-00</td>
-                <td>Ngân hàng phát triển HDBank</td>
                 <td>15/01/2025</td>
                 <td>100</td>
                 <td>200.000.000</td>
@@ -119,21 +129,11 @@
                 <td></td>
                 <td class="status"><a href="Detail_Don.html">Gốc</a></td>
             </tr>
-            <tr>
-                <td>PD0101HEA2500107-00</td>
-                <td>Công ty hàng không Vietjet</td>
-                <td>19/01/2025</td>
-                <td>5.000.000</td>
-                <td>1.200.000.000</td>
+
+            <!-- Dòng expand -->
+            <tr class="expandable expand-105">
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="status">Gốc</td>
-            </tr>
-            <tr>
                 <td>PD0101HEA2500105-01</td>
-                <td>Ngân hàng phát triển HDBank</td>
                 <td>20/02/2025</td>
                 <td></td>
                 <td></td>
@@ -141,9 +141,49 @@
                 <td>60.000.000</td>
                 <td>12</td>
                 <td>24.000.000</td>
-                <td class="status">SĐBS</td>
+                <td class="status"><a href="Detail_Don.html">Sửa đổi bổ sung</a></td>
+            </tr>
+            <tr class="expandable expand-105">
+                <td></td>
+                <td>PD0101HEA2500105-02</td>
+                <td>15/03/2025</td>
+                <td></td>
+                <td></td>
+                <td>20</td>
+                <td>40.000.000</td>
+                <td></td>
+                <td></td>
+                <td class="status"><a href="Detail_Don.html">Sửa đổi bổ sung</a></td>
+            </tr>
+
+            <!-- Dòng không có expand (Không có mũi tên) -->
+            <tr>
+                <td>Công ty hàng không Vietjet</td>
+                <td>PD0101HEA2500107-00</td>
+                <td>19/01/2025</td>
+                <td>5.000.000</td>
+                <td>1.200.000.000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="status"><a href="Detail_Don.html">Gốc</a></td>
             </tr>
         </table>
     </div>
+
+    <script>
+        function toggleExpand(className, row) {
+            let rows = document.querySelectorAll("." + className);
+            let arrow = row.querySelector(".arrow");
+
+            rows.forEach(row => {
+                row.style.display = row.style.display === "none" ? "table-row" : "none";
+            });
+
+            // Đổi mũi tên khi expand/collapse
+            arrow.textContent = (arrow.textContent === "▼") ? "▶" : "▼";
+        }
+    </script>
 </body>
 </html>
