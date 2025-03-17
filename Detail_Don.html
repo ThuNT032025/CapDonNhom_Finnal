@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin bảo hiểm</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 30px;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #1D7439;
+            margin-bottom: 25px;
+            font-weight: 800;
+        }
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            background: #e7f9e7;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .step:hover {
+            background: #d0f1d0;
+        }
+        .active {
+            background: #155b2f;
+            color: white;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f3f8f3;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .section h3 {
+            color: #1D7439;
+            margin-bottom: 15px;
+        }
+        .section p {
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+        .section strong {
+            font-weight: bold;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .column {
+            flex: 1;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .column .double-column {
+            display: flex;
+            justify-content: space-between;
+        }
+        .column .double-column div {
+            width: 48%;
+        }
+        .link-button {
+            display: inline-block;
+            background: #1D7439;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+        .link-button:hover {
+            background: #155b2f;
+        }
+		.footer {
+			display: flex;
+			justify-content: space-between; /* Căn hai bên */
+			align-items: center;
+			margin-top: 30px;
+			justify-content: center;
+            align-items: center;
+		}
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            height: 50px;
+            padding: 15px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+		
+        .btn:hover {
+            background-color: #1A6E2E;
+            transform: scale(1.2); 
+        }
+        .action-list {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .action-list a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .action-list a:hover {
+            text-decoration: underline;
+        }
+        .right-align {
+            float: right;
+            margin-right: 120px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #e7f9e7;
+            color: #1D7439;
+        }
+        td {
+            background-color: #f3f8f3;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Xem chi tiết đơn bảo hiểm</h2>
+        <!-- Steps -->
+
+        <!-- Thông tin khách hàng and Chi tiết người tham gia bảo hiểm in two columns -->
+        <div class="section">
+            <h3>Thông tin khách hàng
+            <span class="right-align">Thông tin chi tiết người được bảo hiểm</span></h3>
+            <div class="row">
+                <div class="column">
+                    <p><strong>Khách hàng:</strong> VIETJET-Công ty hàng không Vietjet air</p>
+                    <p><strong>Địa chỉ:</strong> 58 Nguyễn Đình Chiểu</p>
+                    <p><strong>Số hợp đồng gốc:</strong> PA0304HEA2500102-00</p>
+                    <p><strong>Số hợp đồng sửa đổi:</strong> PA0304HEA2500102-05</p>
+                    <p><strong>Email:</strong> abc@gmail.com</p>
+                    <p><strong>Số điện thoại:</strong> 09872666221</p>
+                </div>
+                <div class="column">
+                    <p><strong>Tổng số Người được bảo hiểm:</strong> 100 người</p>
+                    <p><strong>Tổng phí:</strong> 340.000.000 VND</p>
+                    <a href="#">Xem lịch sử</a>
+					<p><strong>Trạng thái:</strong> Gốc</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gộp Chương trình A - Gói 1 và Chương trình A - Gói 2 thành 1 bảng -->
+        <div class="section">
+            <h3>Mã chương trình - Tên Chương trình A</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Gói bảo hiểm</th>
+                        <th>Số người được bảo hiểm tăng</th>
+                        <th>Phí tăng (VND)</th>
+                        <th>Số người được bảo hiểm giảm</th>
+                        <th>Phí giảm (VND)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gói 01</td>
+                        <td>90 người</td>
+                        <td>270.000.000</td>
+                        <td>10 người</td>
+                        <td>30.000.000</td>
+                    </tr>
+                    <tr>
+                        <td>Gói 02</td>
+                        <td>20 người</td>
+                        <td>100.000.000</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Footer and buttons -->
+<div class="footer">
+        <button type="close" class="btn" onclick="closePage(event)">Đóng</button>
+</div>
+    </div>
+	<script>
+    function toggleDropdown() {
+        document.getElementById("dropdownMenu").classList.toggle("show");
+    }
+    
+    // Ẩn menu khi click bên ngoài
+    window.onclick = function(event) {
+        if (!event.target.matches('.btn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                dropdowns[i].classList.remove("show");
+            }
+        }
+    }
+
+
+
+</script>
+</body>
+</html>
