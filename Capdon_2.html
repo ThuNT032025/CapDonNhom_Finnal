@@ -181,6 +181,9 @@
         .action-list a:hover {
             text-decoration: underline;
         }
+				.red_color{
+		color: red;
+		}
     </style>
 </head>
 <script>
@@ -311,7 +314,7 @@ function saveEditInfo_NewID(element) {
 	
     <div class="section row">
 	<div>
-        <label>Chương trình bảo hiểm:</label>
+        <label>Chương trình bảo hiểm<b class="red_color">*</b></label>
         <select>
             <option>Mã chương trình A - Tên Chương trình A</option>
             <option>Mã chương trình B - Tên Chương trình B</option>
@@ -320,7 +323,7 @@ function saveEditInfo_NewID(element) {
     </div>
 <div>
     <label>
-        Loại hợp đồng:
+        Loại hợp đồng<b class="red_color">*</b>
         <select id="contractType" name="contractType">
             <option value="Hợp đồng SĐBS" selected>Hợp đồng SĐBS</option>
             <option value="Hợp đồng Gốc">Hợp đồng gốc</option>
@@ -328,7 +331,7 @@ function saveEditInfo_NewID(element) {
     </label>
 </div>
 	    <div >
-        <label>Ngày cấp:</label>
+        <label>Ngày cấp<b class="red_color">*</b></label>
         <input type="date">
     </div>
 
@@ -337,11 +340,11 @@ function saveEditInfo_NewID(element) {
 
     <div class="section row">
         <div>
-            <label>Ngày bắt đầu hiệu lực:</label>
+            <label>Ngày bắt đầu hiệu lực<b class="red_color">*</b></label>
             <input type="datetime-local">
         </div>
         <div>
-            <label>Ngày kết thúc hiệu lực:</label>
+            <label>Ngày kết thúc hiệu lực<b class="red_color">*</b></label>
             <input type="datetime-local">
         </div>
     </div>
@@ -470,6 +473,7 @@ function saveEditInfo_NewID(element) {
                     <th>Email</th>
                     <th>Ngày bắt đầu</th>
 					<th>Ngày kết thúc</th>
+					<th>Số ngày</th>
                     <th>Số Giấy Chứng Nhận</th>
                     <th>Thao tác</th>
                 </tr>
@@ -484,12 +488,13 @@ function saveEditInfo_NewID(element) {
 					<td id="dob">01/01/1985</td>
 					<td id="idCard">123123123</td>
 					<td id="email">abc@gmail.com</td>
-					<td id="startDate">01/01/2023 00:00</td>
-					<td id="endDate">01/01/2024 23:59</td>
-					<td id="certificate">GCN-001</td>
+					<td id="startDate">01/01/2025 00:00</td>
+					<td id="endDate">31/08/2025 23:59</td>
+					<td id="day">221</td>
+					<td id="certificate"></td>
 					<td class="action-list">
 						<a class="link-button" href="#">Xem trước GCN</a>
-						<a class="link-button" href="2.1.Sửa thông tin điều chỉnh.html" onclick="saveEditInfo(this)" id="Update">Sửa</a>
+					
 						<a class="link-button" href="#">Xóa</a>
 					</td>
 				</tr>
@@ -503,15 +508,16 @@ function saveEditInfo_NewID(element) {
 					<td id="dob">12/02/1990</td>
 					<td id="idCard">234234234</td>
 					<td id="email">bcd@gmail.com</td>
-					<td id="startDate">01/02/2023 00:00</td>
-					<td id="endDate">01/02/2024 23:59</td>
+					<td id="startDate">01/01/2025 00:00</td>
+					<td id="endDate">30/03/2025 23:59</td>
+					<td id="day">214</td>
 					<td id="certificate">GCN-002</td>
 					<td class="action-list">
 						<label style="display: flex; align-items: center; gap: 5px; white-space: nowrap;">
 							<input type="checkbox" name="boiThuong" id="boiThuong2"> Đã bồi thường
 						</label>
 						<a class="link-button" href="#">Xem trước GCN</a>
-						<a class="link-button" href="2.1.Sửa thông tin điều chỉnh.html" onclick="saveEditInfo(this)">Sửa</a>
+						
 						<a class="link-button" href="#">Xóa</a>
 					</td>
 				</tr>
@@ -527,6 +533,7 @@ function saveEditInfo_NewID(element) {
 					<td id="email">efg@gmail.com</td>
 					<td id="startDate">15/03/2023 00:00</td>
 					<td id="endDate">15/03/2024 23:59</td>
+					<td id="day">365</td>
 					<td id="certificate">GCN-003</td>
 					<td class="action-list">
 						<a class="link-button" href="#">Xem trước GCN</a>
@@ -546,7 +553,46 @@ function saveEditInfo_NewID(element) {
 					<td id="email">hij@gmail.com</td>
 					<td id="startDate">20/06/2023 00:00</td>
 					<td id="endDate">20/06/2024 23:59</td>
+					<td id="day">365</td>
 					<td id="certificate">GCN-004</td>
+					<td class="action-list">
+						<a class="link-button" href="#">Xem trước GCN</a>
+						<a class="link-button" href="2.1.Sửa thông tin điều chỉnh.html" onclick="saveEditInfo(this)">Sửa</a>
+						<a class="link-button" href="#">Xóa</a>
+					</td>
+				</tr>
+				<tr id="KHDC5">
+					<td>5</td>
+					<td id="name">Nguyễn Thị Minh Hương</td>
+					<td id="goiBaohiem">SK_VJ_01_Nhân viên</td>
+					<td id="adjustmentType">Giảm</td>
+					<td id="fee">1.750.000</td>
+					<td id="dob">20/06/1995</td>
+					<td id="idCard">456456456</td>
+					<td id="email">hij@gmail.com</td>
+					<td id="startDate">20/06/2023 00:00</td>
+					<td id="endDate">20/06/2024 23:59</td>
+					<td id="day">365</td>
+					<td id="certificate">GCN-005</td>
+					<td class="action-list">
+						<a class="link-button" href="#">Xem trước GCN</a>
+						<a class="link-button" href="2.1.Sửa thông tin điều chỉnh.html" onclick="saveEditInfo(this)">Sửa</a>
+						<a class="link-button" href="#">Xóa</a>
+					</td>
+				</tr>
+				<tr id="KHDC6">
+					<td>6</td>
+					<td id="name">Nguyễn Thị Minh Hương</td>
+					<td id="goiBaohiem">SK_VJ_02_Quản lý</td>
+					<td id="adjustmentType">Tăng</td>
+					<td id="fee">2.580.000</td>
+					<td id="dob">20/06/1995</td>
+					<td id="idCard">456456456</td>
+					<td id="email">hij@gmail.com</td>
+					<td id="startDate">20/06/2023 00:00</td>
+					<td id="endDate">20/06/2024 23:59</td>
+					<td id="day">365</td>
+					<td id="certificate">GCN-005</td>
 					<td class="action-list">
 						<a class="link-button" href="#">Xem trước GCN</a>
 						<a class="link-button" href="2.1.Sửa thông tin điều chỉnh.html" onclick="saveEditInfo(this)">Sửa</a>
