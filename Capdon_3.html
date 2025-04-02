@@ -240,6 +240,7 @@
         <!-- Gộp Chương trình A - Gói 1 và Chương trình A - Gói 2 thành 1 bảng -->
         <div class="section">
             <h3>Mã chương trình - Tên Chương trình A</h3>
+			<h4>1. Thông tin Tăng/Giảm Người được bảo hiểm</h4>
             <table>
                 <thead>
                     <tr>
@@ -267,7 +268,46 @@
                     </tr>
                 </tbody>
             </table>
+			<h4>2. Danh sách cập nhật thông tin người được bảo hiểm</h4>
+			  <table>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Số Giấy chứng nhận</th>
+                        <th>Thông tin cũ</th>
+                        <th>Thông tin mới</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>PA0304HEA2500102-02-12</td>
+                        <td>Họ và tên: Nguyễn Văn A</br>
+						Ngày sinh:10/02/2001</br>
+						CCCD/IDCard: 0183738384
+						</td>
+                        <td>Họ và tên: Trần Văn A</br>
+						Ngày sinh:10/02/2001</br>
+						CCCD/IDCard: 01863774792</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>PA0304HEA2500102-02-15</td>
+                        <td>Họ và tên: Nguyễn Thị D</br>
+						Ngày sinh:22/07/2003</br>
+						CCCD/IDCard: 98637843</br>
+						Mối quan hệ: Con</td>
+                        <td>Họ và tên: Nguyễn Thị D</br>
+						Ngày sinh:22/07/2003</br>
+						CCCD/IDCard: 98637843</br>
+						Mối quan hệ: Vợ</td>
+
+                    </tr>
+                </tbody>
+            </table>
         </div>
+
 
         <!-- Footer and buttons -->
 <div class="footer">
@@ -276,12 +316,13 @@
     </a>
     
     <div class="dropdown">
-        <button class="btn" onclick="toggleDropdown()">Lưu</button>
+        <button class="btn" onclick="toggleDropdown()" title="Nháp, chưa cấp số GCN">Lưu</button>
         <div class="dropdown-content" id="dropdownMenu">
-            <a href="#">Xác nhận</a>
-            <a href="#">Hủy Xác nhận</a>
-            <a href="#">Gửi Xác nhận</a>
-            <a href="#">Xác nhận cấp đơn</a>
+            <a href="#" title="Lưu trạng thái đã kiểm tra đơn, không được chỉnh sửa">Xác nhận</a>
+            <a href="#" title="Hủy Xác nhận để chỉnh sửa lại thông tin">Hủy Xác nhận</a>
+            <a href="#" title="Nếu trường hợp phân cấp Xác nhận">Gửi Xác nhận</a>
+            <a href="#" title="Cấp đơn và ký số GCN">Xác nhận cấp đơn</a>
+			<a href="#" title="Cấp đơn, ký số GCN và gửi email cho KH">Xác nhận cấp đơn và gửi Email</a>
         </div>
     </div>
 </div>

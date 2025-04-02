@@ -231,13 +231,10 @@
                     <label>Phí</label>
                     <input id="fee" type="number" name="phi" step="0.01" required>
                 </div>
-				<div class="form-group form-group-half">
-                    <label>Nguyên tệ</label>
-                    <select name="nguyenTe">
-                        <option value="VND" selected>VND</option>
-                        <option value="USD">USD</option>
-                    </select>
-                </div>
+			<div class="form-group form-group-half" id="reducedFeeRow" style="display: none;">
+				<label id="reducedFeeLabel">Phí giảm<b class="red_color">*</b></label>
+				<input id="NDBH_reducedFee" type="number" name="phiGiam" step="0.01" placeholder="Mặc định hiển thị phí hệ thống tính">
+			</div>
             </div>
 
             <div class="form-row">
@@ -257,8 +254,7 @@
 						<option value="Gốc">Gốc</option>
                         <option value="Tăng">Tăng</option>
                         <option value="Giảm">Giảm</option>
-                        <option value="Thay đổi thông tin">Thay đổi thông tin</option>
-                        <option value="Thay đổi thông tin phí">Thay đổi thông tin phí</option>
+                        <!--<option value="Thay đổi thông tin">Thay đổi thông tin</option>-->
                     </select>
                 </div>
 				<div class="form-group form-group-half" id="certificateField">
@@ -323,6 +319,58 @@ function fillRowData(row, data) {
 			checkAdjustmentType();
 
 			// Lắng nghe sự thay đổi của dropdown
+			adjustmentTypeSelect.addEventListener("change", function () {
+				checkAdjustmentType();
+			});
+		});
+//Load ẩn hiện Phí
+				document.addEventListener("DOMContentLoaded", function () {
+			var adjustmentTypeSelect = document.getElementById("NDBH_adjustmentType");
+			var certificateField = document.getElementById("NDBH_certificateField");
+			var reducedFeeRow = document.getElementById("reducedFeeRow");
+			var reducedFeeLabel = document.getElementById("reducedFeeLabel");
+			var reducedFeeInput = document.getElementById("NDBH_reducedFee");
+
+			if (!adjustmentTypeSelect || !certificateField || !reducedFeeRow || !reducedFeeLabel || !reducedFeeInput) {
+				console.error("❌ Không tìm thấy phần tử cần thiết!");
+				return;
+			}
+
+			function checkAdjustmentType() {
+				var adjustmentType = adjustmentTypeSelect.value;
+				certificateField.style.display = "flex";
+
+				if (adjustmentType === "Giảm") {
+					reducedFeeRow.style.display = "flex";
+					reducedFeeLabel.textContent = "Phí giảm*";
+					reducedFeeInput.disabled = false;
+				} else if (adjustmentType === "Tăng") {
+					reducedFeeRow.style.display = "flex";
+					reducedFeeLabel.textContent = "Phí tăng*";
+					reducedFeeInput.disabled = false;
+				} else if (adjustmentType === "Gốc") {
+					reducedFeeRow.style.display = "flex";
+					reducedFeeLabel.textContent = "Phí*";
+					reducedFeeInput.disabled = false;
+				} else if (adjustmentType === "Thay đổi thông tin") {
+					reducedFeeRow.style.display = "flex";
+					reducedFeeLabel.textContent = "Phí";
+					reducedFeeInput.disabled = true;
+				} else if (adjustmentType === "Thay đổi thông tin phí") {
+					reducedFeeRow.style.display = "flex";
+					reducedFeeLabel.textContent = "Phí";
+					reducedFeeInput.disabled = false;
+				} else {
+					reducedFeeRow.style.display = "none";
+				}
+
+				if (adjustmentType === "Thay đổi thông tin" || adjustmentType === "Thay đổi thông tin phí") {
+					certificateField.style.display = "flex";
+				}
+			}
+
+			checkAdjustmentType();
+
 			adjustmentTypeSelect.addEventListener("change", function () {
 				checkAdjustmentType();
 			});
