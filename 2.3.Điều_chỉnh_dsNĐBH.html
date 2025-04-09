@@ -135,6 +135,21 @@
     <div class="container">
         <h2>Điều chỉnh thông tin Người được bảo hiểm</h2>
         <form>
+		    <div class="form-row">
+                <div class="form-group form-group-half">
+                    <label>Loại<b class="red_color">*</b></label>
+                    <select id="NDBH_adjustmentType" name="loai">
+                     
+                        <option value="Giảm">Giảm</option>
+                        <option value="Thay đổi thông tin">Thay đổi thông tin</option>
+						<option value="Thay đổi thông tin phí">Thay đổi thông tin phí</option>
+                    </select>
+                </div>
+                <div class="form-group form-group-half" id="NDBH_certificateField">
+                    <label>Số Giấy Chứng Nhận</label>
+                    <input id="NDBH_certificate" type="text" name="soGCN" disabled>
+                </div>
+            </div>
             <div class="form-row">
                 <div class="form-group form-group-half">
                     <label>Tên người được bảo hiểm<b class="red_color">*</b></label>
@@ -207,21 +222,7 @@
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group form-group-half">
-                    <label>Loại<b class="red_color">*</b></label>
-                    <select id="NDBH_adjustmentType" name="loai">
-                     
-                        <option value="Giảm">Giảm</option>
-                        <option value="Thay đổi thông tin">Thay đổi thông tin</option>
-						<option value="Thay đổi thông tin phí">Thay đổi thông tin phí</option>
-                    </select>
-                </div>
-                <div class="form-group form-group-half" id="NDBH_certificateField">
-                    <label>Số Giấy Chứng Nhận</label>
-                    <input id="NDBH_certificate" type="text" name="soGCN" disabled>
-                </div>
-            </div>
+
 
             <div class="actions">
                 <button type="cancel" class="btn" onclick="closePage(event)">Hủy</button>

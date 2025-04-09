@@ -172,6 +172,21 @@
     <div class="container">
         <h2>Cập nhật thông tin cấp đơn</h2>
         <form>
+			<div class="form-row">
+                <div class="form-group form-group-half">
+                    <label>Loại</label>
+                    <select id ="adjustmentType" name="loai">
+						<option value="Gốc">Gốc</option>
+                        <option value="Tăng">Tăng</option>
+                        <option value="Giảm">Giảm</option>
+                        <option value="Thay đổi thông tin">Thay đổi thông tin</option>
+                    </select>
+                </div>
+				<div class="form-group form-group-half" id="certificateField">
+					<label>Số Giấy Chứng Nhận</label>
+					<input id ="certificate" type="text" name="soGCN" disabled>
+				</div>
+			</div>
             <div class="form-row">
                 <div class="form-group form-group-half">
                     <label>Tên người được bảo hiểm</label>
@@ -247,21 +262,7 @@
                     <input id="endDate" type="datetime-local" name="ngayKetThuc" required>
                 </div>
             </div>
-			<div class="form-row">
-                <div class="form-group form-group-half">
-                    <label>Loại</label>
-                    <select id ="adjustmentType" name="loai">
-						<option value="Gốc">Gốc</option>
-                        <option value="Tăng">Tăng</option>
-                        <option value="Giảm">Giảm</option>
-                        <option value="Thay đổi thông tin">Thay đổi thông tin</option>
-                    </select>
-                </div>
-				<div class="form-group form-group-half" id="certificateField">
-					<label>Số Giấy Chứng Nhận</label>
-					<input id ="certificate" type="text" name="soGCN" disabled>
-				</div>
-			</div>
+
             <div class="actions">
 			<button type="cancel" class="btn" onclick="closePage(event)">Hủy</button>
             <button type="submit" class="btn" onclick="closePage(event)">Lưu Thay Đổi</button>
