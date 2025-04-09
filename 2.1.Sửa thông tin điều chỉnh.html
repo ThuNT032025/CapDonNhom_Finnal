@@ -243,13 +243,13 @@
 
             <div class="form-row">
                 <div class="form-group form-group-half">
-                    <label>Phí</label>
-                    <input id="fee" type="number" name="phi" step="0.01" required>
+                    <label>Phí gốc</label>
+                    <input id="fee" type="number" name="phi" step="0.01" disabled>
                 </div>
-			<div class="form-group form-group-half" id="reducedFeeRow" style="display: none;">
-				<label id="reducedFeeLabel">Phí giảm<b class="red_color">*</b></label>
-				<input id="NDBH_reducedFee" type="number" name="phiGiam" step="0.01" placeholder="Mặc định hiển thị phí hệ thống tính">
-			</div>
+				<div class="form-group form-group-half" id="reducedFeeRow" style="display: none;">
+					<label id="reducedFeeLabel">Phí giảm<b class="red_color">*</b></label>
+					<input id="NDBH_UD_reducedFee" type="number" name="phiGiam" step="0.01" placeholder="Mặc định hiển thị phí hệ thống tính">
+				</div>
             </div>
 
             <div class="form-row">
@@ -326,11 +326,11 @@ function fillRowData(row, data) {
 		});
 //Load ẩn hiện Phí
 				document.addEventListener("DOMContentLoaded", function () {
-			var adjustmentTypeSelect = document.getElementById("NDBH_adjustmentType");
-			var certificateField = document.getElementById("NDBH_certificateField");
+			var adjustmentTypeSelect = document.getElementById("adjustmentType");
+			var certificateField = document.getElementById("certificateField");
 			var reducedFeeRow = document.getElementById("reducedFeeRow");
 			var reducedFeeLabel = document.getElementById("reducedFeeLabel");
-			var reducedFeeInput = document.getElementById("NDBH_reducedFee");
+			var reducedFeeInput = document.getElementById("NDBH_UD_reducedFee");
 
 			if (!adjustmentTypeSelect || !certificateField || !reducedFeeRow || !reducedFeeLabel || !reducedFeeInput) {
 				console.error("❌ Không tìm thấy phần tử cần thiết!");
