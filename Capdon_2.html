@@ -458,7 +458,7 @@ function saveEditInfo_NewID(element) {
         <div class="flex gap-4 mb-4">
             <button class="btn_file">Tải file mẫu</button>
             <button class="btn_file">Import dữ liệu</button>
-            <button class="btn_file">Nhập lẻ</button>
+            <button class="btn_file" data-href="2.1.Sửa thông tin điều chỉnh.html">Nhập lẻ</button>
         </div>
         <table>
             <thead>
@@ -614,7 +614,18 @@ function saveEditInfo_NewID(element) {
 		</a>
     </div>
 </div>
-
+<script>
+//Button
+ const buttons = document.querySelectorAll('.btn_file');
+  buttons.forEach(button => {
+    button.addEventListener('click', function() {
+      const href = this.getAttribute('data-href');
+      if (href) {
+        window.location.href = href;
+      }
+    });
+  });
+</script>
 
 
 </body>
